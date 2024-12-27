@@ -87,11 +87,16 @@ jobs:
           key: ${{ secrets.AWS_SSH_KEY }}
           script: |
             cd ~/java-app
-            mvn clean package
-            sudo cp target/*.war /opt/tomcat/webapps/
-            sudo /opt/tomcat/bin/shutdown.sh
-            sudo /opt/tomcat/bin/startup.sh
-            echo "WAR file deployed to Tomcat"
+             mvn clean package
+            if [ -f target/*.war ]; then
+              sudo cp target/*.war /opt/tomcat/webapps/
+              sudo /opt/tomcat/bin/shutdown.sh || true
+              sudo /opt/tomcat/bin/startup.sh
+              echo "WAR file deployed to Tomcat"
+            else
+              echo "Error: WAR file not found in target/ directory"
+              exit 1
+            fi
 
       - name: Revoke SSH Access for Runner IP
         run: |

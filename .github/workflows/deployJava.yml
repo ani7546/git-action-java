@@ -37,6 +37,15 @@ jobs:
             --port 22 \
             --cidr ${IP}/32 \
             --region ${{ secrets.AWS_REGION }}
+      - name: Test SSH Connection
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: ${{ secrets.AWS_SERVER_HOST }}
+          username: ${{ secrets.AWS_SERVER_USER }}
+          key: ${{ secrets.AWS_SSH_KEY }}
+          script: |
+            echo "SSH connection successful"
+
 
       - name: Copy Files to Server
         uses: appleboy/scp-action@v0.1.4

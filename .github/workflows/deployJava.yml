@@ -68,7 +68,9 @@ jobs:
             sudo apt install -y openjdk-17-jdk 
             wget https://dlcdn.apache.org/maven/maven-3/3.9.5/binaries/apache-maven-3.9.5-bin.tar.gz
             sudo tar xzf apache-maven-3.9.5-bin.tar.gz -C /opt
+            sudo rm -f /usr/bin/mvn
             sudo ln -s /opt/apache-maven-3.9.5/bin/mvn /usr/bin/mvn
+            mvn -version
             
 
       - name: Build and Deploy Java Maven App

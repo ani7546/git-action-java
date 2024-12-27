@@ -45,7 +45,7 @@ jobs:
           username: ${{ secrets.AWS_SERVER_USER }}
           key: ${{ secrets.AWS_SSH_KEY }}
           passphrase: "" 
-          source: "/tmp/htltyCSGJW.tar.gz"
+          source: "./"
           target: "~/java-app"
 
       - name: Install Java and Maven

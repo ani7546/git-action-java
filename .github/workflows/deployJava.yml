@@ -40,7 +40,13 @@ jobs:
         key: ${{ secrets.EC2_SSH_KEY }}
         script: |
           sudo apt update
-          sudo apt install -y openjdk-11-jdk maven tomcat9
+          sudo apt install -y openjdk-17-jdk 
+          wget https://dlcdn.apache.org/maven/maven-3/3.9.5/binaries/apache-maven-3.9.5-bin.tar.gz
+          sudo tar xzf apache-maven-3.9.5-bin.tar.gz -C /opt
+          sudo rm -f /usr/bin/mvn
+          sudo ln -s /opt/apache-maven-3.9.5/bin/mvn /usr/bin/mvn
+          mvn -version
+          sudo apt install -y tomcat9
           if [ -f target/*.war ]; then
             sudo cp target/*.war /var/lib/tomcat9/webapps/
             sudo systemctl restart tomcat9
